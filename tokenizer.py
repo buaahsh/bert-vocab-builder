@@ -138,7 +138,11 @@ def _read_filepattern(filepattern, max_lines=None, split_on_newlines=True):
     with tf.gfile.Open(filename) as f:
       if split_on_newlines:
         for line in f:
-          yield line.strip()
+          segments = line.split('\t')
+          if len(segments) == 3: # specifc operation for qk pairs
+             yield segments[0] + ' ' + segments[1]
+          else:
+             yield line.strip()
           lines_read += 1
           if max_lines and lines_read >= max_lines:
             return

@@ -565,7 +565,7 @@ class SubwordTextEncoder(TextEncoder):
                            "reserved_tokens.")
 
     start_time = time.time()
-
+    import pudb; pu.db
     # Initialize the alphabet. Note, this must include reserved tokens or it can
     # result in encoding failures.
     alphabet_tokens = chain(six.iterkeys(token_counts),

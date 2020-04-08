@@ -69,7 +69,7 @@ def main(unused_argv):
   else:
     raise ValueError(
         'Must provide one of --corpus_filepattern or --vocab_filepattern')
-
+  print(len(token_counts))
   encoder = text_encoder.SubwordTextEncoder()
   encoder.build_from_token_counts(token_counts, FLAGS.min_count,
                                   FLAGS.num_iterations, max_subtoken_length=FLAGS.max_subtoken_length)

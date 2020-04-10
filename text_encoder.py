@@ -560,12 +560,12 @@ class SubwordTextEncoder(TextEncoder):
     else:
       # There is not complete freedom in replacing RESERVED_TOKENS.
       for default, proposed in zip(RESERVED_TOKENS, reserved_tokens):
-        if default != proposed:
+        if default != proposed and False:
           raise ValueError("RESERVED_TOKENS must be a prefix of "
                            "reserved_tokens.")
 
     start_time = time.time()
-    import pudb; pu.db
+    #import pudb; pu.db
     # Initialize the alphabet. Note, this must include reserved tokens or it can
     # result in encoding failures.
     alphabet_tokens = chain(six.iterkeys(token_counts),

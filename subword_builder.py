@@ -48,6 +48,7 @@ tf.flags.DEFINE_integer('num_iterations', 5, 'Number of iterations')
 tf.flags.DEFINE_bool('split_on_newlines', True, 'Break corpus into lines.')
 tf.flags.DEFINE_string('additional_chars', "", 'Set special characters to be included in vocab. ex : "~", "/".')
 tf.flags.DEFINE_integer('max_subtoken_length', None, 'Max subtoken length')
+tf.flags.DEFINE_string('raw_vocab', None, 'raw bert vovab file')
 FLAGS = tf.flags.FLAGS
 
 
@@ -69,10 +70,17 @@ def main(unused_argv):
   else:
     raise ValueError(
         'Must provide one of --corpus_filepattern or --vocab_filepattern')
+  reserved_tokens = None
+  if FLAGS.raw_vocab:
+      lines = open(FLAGS.raw_vocab, 'r', encoding='utf-8').readlines()
+      lines = [s.strip() for s in lines if len(s) > 0]
+      reserved_tokens = lines
+
   print(len(token_counts))
+  print(len(reserved_tokens))
   encoder = text_encoder.SubwordTextEncoder()
   encoder.build_from_token_counts(token_counts, FLAGS.min_count,
-                                  FLAGS.num_iterations, max_subtoken_length=FLAGS.max_subtoken_length)
+                                  FLAGS.num_iterations, reserved_tokens=reserved_tokens, max_subtoken_length=FLAGS.max_subtoken_length)
   encoder.store_to_file(FLAGS.output_filename, add_single_quotes=False)
   # encoder.store_to_file_with_counts(FLAGS.output_filename + "_counts")
 

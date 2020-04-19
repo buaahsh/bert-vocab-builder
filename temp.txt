@@ -1,0 +1,1 @@
+/var/lib/nova/instances/4b2ab87e23b4_de

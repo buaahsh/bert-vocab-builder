@@ -42,3 +42,9 @@ python subword_builder.py \
 --output_filename {name_of_vocab}
 --min_count {minimum_subtoken_counts}
 ```
+
+```
+python subword_builder.py --corpus_filepattern ../ads_l1_data/AllSelectionQK_Click2_20170510-20190510.txt --output_filename ads.v2.vocab_10000 --raw_vocab ../ads_l1_data/vocab.txt --min_count 10000
+python merge.py --bert_vocab vocab.txt --ads_vocab ads.v2.vocab --output ads.v2.vocab.clean.50000
+
+```
